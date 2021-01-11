@@ -1,27 +1,32 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const LoginScreen = () => {
     return (
         <>
-            <h3>Login</h3>
+            <h3 className="auth__title">Login</h3>
             <form>
                 <input
+                    className="auth__input"
                     type="text"
-                    placeholder="email"
+                    placeholder="Email"
                     name="email"
+                    autoComplete="off"
                 />
 
                 <input
+                    className="auth__input"
                     type="password"
                     placeholder="Password"
                     name="password"
+                    autoComplete="off"
                 />
                 <button
+                className="btn btn-primary btn-block"
                     type="submit">
                     Login
                 </button>
-                <hr />
-                <div>
+                <div className="auth__social-networks">
                     <p>Login with social networks</p>
                     <div
                         className="google-btn"
@@ -34,6 +39,12 @@ export const LoginScreen = () => {
                         </p>
                     </div>
                 </div>
+
+                <Link
+                    to="/auth/register">
+                    Create new account
+
+                </Link>
             </form>
 
         </>
