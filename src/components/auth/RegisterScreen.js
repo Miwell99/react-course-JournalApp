@@ -1,10 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import  validator from 'validator'
+import { useDispatch } from 'react-redux';
+import validator from 'validator';
 
 import { useForm } from '../../hooks/useForm';
+import { uiReducer } from '../../reducers/uiReducer';
+import { removeError, setError } from '../../actions/ui';
 
 export const RegisterScreen = () => {
+
+    const dispatch = useDispatch();
 
     const [formValues, handleInputChange] = useForm({
         name: 'Miguel',
@@ -17,29 +22,30 @@ export const RegisterScreen = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        if(isFormCorrect()){
+        if (isFormCorrect()) {
             console.log('correct')
         }
 
     }
 
-    const isFormCorrect = () =>{
+    const isFormCorrect = () => {
 
-        if ( name.trim().length ===0 ){
-            console.log('name required')
+        if (name.trim().length === 0) {
+            dispatch(setError('name required'));
             return false;
         }
 
-        if( !validator.isEmail(email)){
-            console.log('email is not valid');
+        if (!validator.isEmail(email)) {
+            dispatch(setError('email is not valid'));
             return false;
         }
 
-        if(  password !== password2 || password.length<5){
-            console.log('passwords should match, and should be more than 5 characters');
+        if (password !== password2 || password.length < 5) {
+            dispatch(setError('passwords should match, and should be more than 5 characters'));
             return false;
         }
 
+        dispatch(removeError());
         return true;
     }
 
@@ -98,7 +104,7 @@ export const RegisterScreen = () => {
                 <Link
                     className="link"
                     to="/auth/login">
-                    Alredy Registerted?
+                    Alredy Registered?
                 </Link>
             </form>
 
