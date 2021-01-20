@@ -6,6 +6,7 @@ import validator from 'validator';
 import { useForm } from '../../hooks/useForm';
 import { uiReducer } from '../../reducers/uiReducer';
 import { removeError, setError } from '../../actions/ui';
+import { startRegister } from '../../actions/auth';
 
 export const RegisterScreen = () => {
 
@@ -16,8 +17,8 @@ export const RegisterScreen = () => {
     const [formValues, handleInputChange] = useForm({
         name: 'Miguel',
         email: 'mi@gmail.com',
-        password: '12345',
-        password2: '12345',
+        password: '123456',
+        password2: '123456',
     });
 
     const { name, email, password, password2 } = formValues;
@@ -25,7 +26,7 @@ export const RegisterScreen = () => {
     const handleRegister = (e) => {
         e.preventDefault();
         if (isFormCorrect()) {
-            console.log('correct')
+            dispatch(startRegister(email,password,name));
         }
 
     }
