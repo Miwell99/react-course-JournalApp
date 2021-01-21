@@ -26,12 +26,11 @@ export const uiReducer = (state = initialState, action) => {
                 loading: true
             }
 
-            case types.uiFinishLoading:
-                return {
-                    ...state,
-                    loading: false
-                }
-
+        case types.uiFinishLoading:
+            return {
+                ...state,
+                loading: false
+            }
 
         default:
             return state;
