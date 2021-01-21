@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import validator from 'validator';
 
 import { useForm } from '../../hooks/useForm';
-import { uiReducer } from '../../reducers/uiReducer';
 import { removeError, setError } from '../../actions/ui';
 import { startRegister } from '../../actions/auth';
 
