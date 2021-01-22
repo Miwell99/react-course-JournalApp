@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
     Redirect
 } from "react-router-dom";
 import { AuthRouter } from './AuthRouter';
@@ -11,13 +10,14 @@ import { useDispatch } from 'react-redux';
 
 import { JournalScreen } from '../components/journal/JournalScreen';
 import { login } from '../actions/auth';
+import { PublicRoute } from './PublicRouter';
+import { PrivateRoute } from './PrivateRouter';
 
 export const AppRouter = () => {
 
     const dispatch = useDispatch();
-
     const [checking, setChecking] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         // Observer: Execute only if user change (to remember login after refresh)
@@ -25,29 +25,33 @@ export const AppRouter = () => {
             if (user?.uid) {
                 dispatch(login(user.uid, user.displayName));
                 setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
             }
             setChecking(false);
         })
     }, [dispatch, setChecking, setIsLoggedIn]);
 
-    if(checking){
+    if (checking) {
         return (
+            // Todo: Add here a loading screen component.
             <h1>Wait...</h1>
         )
     }
-
 
     return (
         <>
             <Router>
                 <div>
                     <Switch>
-                        <Route
+                        <PublicRoute
                             path="/auth"
+                            isAuthenticated={isLoggedIn}
                             component={AuthRouter}
                         />
-                        <Route
+                        <PrivateRoute
                             path="/"
+                            isAuthenticated={isLoggedIn}
                             exact
                             component={JournalScreen}
                         />

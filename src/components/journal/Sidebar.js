@@ -17,7 +17,6 @@ export const Sidebar = () => {
                     <i className="far fa-moon"></i>
                     <span> Miguel</span>
                 </h3>
-
                 <button
                     className="btn"
                     onClick={handleLogout}
@@ -25,15 +24,11 @@ export const Sidebar = () => {
                     Logout
                 </button>
             </div>
-
             <div className="journal__new-entry">
                 <i className="far fa-calendar-plus fa-5x"></i>
                 <p>New entry</p>
             </div>
-
             <JournalEntries />
-
-
         </aside>
     )
 }
