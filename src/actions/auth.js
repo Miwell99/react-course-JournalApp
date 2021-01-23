@@ -1,8 +1,8 @@
 import Swal from "sweetalert2";
-import { types } from "../components/types/types"
+import { types } from "../components/types/types";
 
-import { firebase, googleAuthProvider } from '../firebase/firebase-config'
-import { finishLoading, startLoading } from "./ui"
+import { firebase, googleAuthProvider } from '../firebase/firebase-config';
+import { finishLoading, startLoading } from "./ui";
 
 export const startLogin = (email, password) => {
     return (dispatch) => {

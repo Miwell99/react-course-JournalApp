@@ -34,7 +34,7 @@ export const AppRouter = () => {
 
     if (checking) {
         return (
-            // Todo: Add here a loading screen component.
+            //  TODO: Add here a loading screen component.
             <h1>Wait...</h1>
         )
     }
