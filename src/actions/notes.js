@@ -1,7 +1,7 @@
 import { types } from "../components/types/types";
 import { db } from "../firebase/firebase-config";
 
-// the second param is the name of a function you want to access the state (useSelector)
+// The second param is the name of a function you want to access the state (useSelector)
 export const startNewNote = () => {
     return async (dispatch, getState) => {
 
@@ -26,3 +26,9 @@ export const activeNote = (id, note) => ({
         ...note,
     }
 });
+
+export const setNotes = (notes) =>({
+    type: types.notesLoad,
+    payload: notes,
+
+})

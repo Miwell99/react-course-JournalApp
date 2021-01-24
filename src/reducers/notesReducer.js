@@ -6,14 +6,21 @@ const initialState = {
 }
 
 export const notesReducer = (state = initialState, action) => {
-    switch (action.type) {   
+    switch (action.type) {
         case types.notesActive:
             return {
                 ...state,
-                active:{
+                active: {
+                    // add the id from firestore to the state
                     ...action.payload,
                 },
-            }             
+            }
+
+        case types.notesLoad:
+            return {
+                ...state,
+                notes: [...action.payload],
+            }
         default:
             return state;
     }
