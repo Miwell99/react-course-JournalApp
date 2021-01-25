@@ -10,7 +10,9 @@ export const NoteScreen = () => {
     const [formValues, handleInputChange, reset] = useForm(activeNote);
     const { title, body } = formValues;
 
-    const activeId = useRef(activeNote.id); // to save the current note.
+    const activeId = useRef(activeNote.id); // To save the current note.
+
+    // Update the view
     useEffect(() => {
         if (activeNote.id !== activeId.current) {
             reset(activeNote);
@@ -28,12 +30,14 @@ export const NoteScreen = () => {
                     type="text"
                     placeholder="Some awesome things to do"
                     autoComplete="off"
+                    name="title"
                     value={title}
                     onChange={handleInputChange}
                 />
                 <textarea
                     className="notes__textarea"
                     placeholder="What happened today?"
+                    name="body"
                     value={body}
                     onChange={handleInputChange}>
                 </textarea>
