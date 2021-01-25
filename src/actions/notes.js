@@ -56,7 +56,7 @@ export const startSaveNote = (note) => {
 
         await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore);
 
-        refreshNote(note.id, noteToFirestore);
+        dispatch(refreshNote(note.id, note));
     }
 }
 

@@ -25,7 +25,7 @@ export const notesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 notes: state.notes.map(
-                    note => note.id === action.payload.id
+                    note => note.id === action.payload.noteId
                         ? action.payload.note
                         : note
                 )
