@@ -35,8 +35,25 @@ export const startLoadingNotes = (uid) => {
 
     }
 }
+
 export const setNotes = (notes) => ({
     type: types.notesLoad,
     payload: notes,
 
 })
+
+export const startSaveNote = (note) => {
+    return async (dispatch, getState) => {
+        const { uid } = getState().auth;
+
+        // To prevent firebase undefined property error.
+        if(!note.url){
+            delete note.url
+        }
+
+        const noteToFirestore = {...note};
+        delete noteToFirestore.id;      // remove a property from the object
+
+        await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore);
+    }
+}

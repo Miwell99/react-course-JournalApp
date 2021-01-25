@@ -1,25 +1,32 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { NotesAppbar } from './NotesAppbar';
 import { useForm } from '../../hooks/useForm';
+import { activeNote } from '../../actions/notes';
 
 export const NoteScreen = () => {
 
-    const { active: activeNote } = useSelector(state => state.notes);
-    const [formValues, handleInputChange, reset] = useForm(activeNote);
+    const dispatch = useDispatch();
+
+    const { active: note } = useSelector(state => state.notes);
+    const [formValues, handleInputChange, reset] = useForm(note);
     const { title, body } = formValues;
 
-    const activeId = useRef(activeNote.id); // To save the current note.
+    const activeId = useRef(note.id); // To save the current note.
 
     // Update the view
     useEffect(() => {
-        if (activeNote.id !== activeId.current) {
-            reset(activeNote);
-            activeId.current = activeNote.id;
+        if (note.id !== activeId.current) {
+            reset(note);
+            activeId.current = note.id;
         }
 
-    }, [activeNote, reset])
+    }, [note, reset]);
+
+    useEffect(() => {
+        dispatch(activeNote(formValues.id, { ...formValues }));
+    }, [formValues,dispatch])
 
     return (
         <div className="notes__main-content">
@@ -42,7 +49,7 @@ export const NoteScreen = () => {
                     onChange={handleInputChange}>
                 </textarea>
                 {
-                    (activeNote.url) &&
+                    (note.url) &&
                     (
                         <div className="notes__img">
                             <img
