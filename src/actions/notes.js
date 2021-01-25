@@ -47,13 +47,26 @@ export const startSaveNote = (note) => {
         const { uid } = getState().auth;
 
         // To prevent firebase undefined property error.
-        if(!note.url){
+        if (!note.url) {
             delete note.url
         }
 
-        const noteToFirestore = {...note};
+        const noteToFirestore = { ...note };
         delete noteToFirestore.id;      // remove a property from the object
 
         await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore);
+
+        refreshNote(note.id, noteToFirestore);
     }
 }
+
+export const refreshNote = (noteId, note) => ({
+    type: types.notesUpdated,
+    payload: {
+        noteId,
+        note: {
+            noteId,
+            ...note
+        }
+    }
+});
