@@ -1,12 +1,25 @@
 import React from 'react';
 import moment from "moment";
 
-export const JournalEntry = ({id, date, title, body, url}) => {
+import { activeNote } from '../../actions/notes';
+import { useDispatch, useSelector } from 'react-redux';
 
-    const noteDate = moment(date)
+export const JournalEntry = ({ id, title, body, date, url }) => {
+
+    const noteDate = moment(date);
+    const dispatch = useDispatch();
+    
+    const handleEntryClick = () => {
+        dispatch(activeNote(id, {
+            title, body, date, url
+        }));
+    }
 
     return (
-        <div className="journal__entry pointer">
+        <div
+            className="journal__entry pointer"
+            onClick={handleEntryClick}
+        >
             {
                 url &&
                 <div className="journal__entry-picture"
