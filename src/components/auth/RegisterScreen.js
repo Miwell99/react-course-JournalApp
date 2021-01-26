@@ -25,7 +25,7 @@ export const RegisterScreen = () => {
     const handleRegister = (e) => {
         e.preventDefault();
         if (isFormCorrect()) {
-            dispatch(startRegister(email,password,name));
+            dispatch(startRegister(email, password, name));
         }
 
     }
@@ -54,7 +54,10 @@ export const RegisterScreen = () => {
     return (
         <>
             <h3 className="auth__title">Register</h3>
-            <form onSubmit={handleRegister}>
+            <form
+                className="animate__animated animate__fadeIn animate__faster"
+                onSubmit={handleRegister}
+            >
 
                 {
                     msgError &&

@@ -8,7 +8,7 @@ import { startLogin, startLoginWithGoogle } from '../../actions/auth';
 export const LoginScreen = () => {
 
     const dispatch = useDispatch();
-    const {loading} = useSelector(state => state.ui);
+    const { loading } = useSelector(state => state.ui);
 
     const [formValues, handleInputChange] = useForm({
         email: 'mi@gmail.com',
@@ -31,7 +31,10 @@ export const LoginScreen = () => {
     return (
         <>
             <h3 className="auth__title">Login</h3>
-            <form onSubmit={handleLogin}>
+            <form
+                className="animate__animated animate__fadeIn animate__faster"
+                onSubmit={handleLogin}
+            >
                 <input
                     className="auth__input"
                     type="text"
@@ -54,7 +57,7 @@ export const LoginScreen = () => {
                 <button
                     className="btn btn-primary btn-block"
                     type="submit"
-                    disabled= {loading}>
+                    disabled={loading}>
                     Login
                 </button>
                 <div className="auth__social-networks">
