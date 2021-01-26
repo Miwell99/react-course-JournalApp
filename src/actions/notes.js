@@ -20,6 +20,7 @@ export const startNewNote = () => {
         // insert
         const insert = await db.collection(`${uid}/journal/notes`).add(newNote);
         dispatch(activeNote(insert.id, newNote));
+        dispatch(addNewNote(insert.id, newNote));
     }
 }
 
@@ -30,6 +31,14 @@ export const activeNote = (id, note) => ({
         ...note,
     }
 });
+
+export const addNewNote = (id, note) => ({
+    type: types.notesAddNew,
+        payload: {
+        id,
+        ...note
+    }
+})
 
 export const startLoadingNotes = (uid) => {
     return async (dispatch) => {
@@ -97,7 +106,7 @@ export const startDelete = (noteId) => {
     return async (dispatch, getState) => {
         const uid = getState().auth.uid;
         await db.doc(`${uid}/journal/notes/${uid}`).delete();
-        
+
         dispatch(deleteNote(noteId));
     }
 }
@@ -105,4 +114,9 @@ export const startDelete = (noteId) => {
 export const deleteNote = (noteId) => ({
     type: types.notesDeleted,
     payload: noteId,
+});
+
+export const noteLogout = () => ({
+    type: types.notesLogoutCleaning,
+    //payload: {},
 });
