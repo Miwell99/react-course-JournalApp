@@ -11,7 +11,6 @@ export const startNewNote = () => {
     return async (dispatch, getState) => {
 
         const uid = getState().auth.uid;
-
         const newNote = {
             title: '',
             body: '',
@@ -49,18 +48,16 @@ export const setNotes = (notes) => ({
 export const startSaveNote = (note) => {
     return async (dispatch, getState) => {
         const { uid } = getState().auth;
-
         // To prevent firebase undefined property error.
         if (!note.url) {
             delete note.url
         }
-
         const noteToFirestore = { ...note };
         delete noteToFirestore.id;      // remove a property from the object
-
         await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFirestore);
 
         dispatch(refreshNote(note.id, note));
+
         Swal.fire('Saved', note.title, 'success');
     }
 }
@@ -79,8 +76,19 @@ export const refreshNote = (noteId, note) => ({
 export const startUploading = (file) => {
     return async (dispatch, getState) => {
         const { active: activeNote } = getState().notes;
-
+        Swal.fire({
+            title: 'Uploading...',
+            text: 'Please wait...',
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            onBeforeOpen: () => {
+                Swal.showLoading();
+            }
+        })
         const fileUrl = await Cloudinary__fileUpload(file);
-        console.log(fileUrl);
+        activeNote.url = fileUrl;
+        dispatch(startSaveNote(activeNote));
+
+        Swal.close();
     }
 }
