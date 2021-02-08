@@ -1,3 +1,6 @@
+# Journal App
+This is a To Do App, that saves/edit/delete your notes on a Firebase Database, and let you login/register manually or with Google Auth. The style is developed with SASS. The images from the notes are storaged on a third party server called Cloudbinary
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
